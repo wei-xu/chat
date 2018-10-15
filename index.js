@@ -14,11 +14,21 @@ app.get('/', function(req, res) {
 
 // connection
 io.on('connection', function(socket){
-	// TODO:  tried socket.emit here doesn't work, diff io.emit vs socket.emit
-	io.emit('chat message', '-- a user has connected');
+	// TODO:  tried socket.emit here doesn't work, figure out diff io.emit vs socket.emit
+
+	// use socket.broadcast.emit for user connect to avoid first entry notice
+	// socket.broadcast.emit broadcasts this message to all connected socket but this one
+	socket.broadcast.emit('chat message', '-- a new user has connected');
 
 	socket.on('chat message', function(msg){
+
+		const short_socket_id = socket.id.substring(0, 4);
+
+		// io.emit does broadcast to all connected sockets
 		io.emit('chat message', msg);
+
+		// // socket.emit only emit the message to this connected sockets
+		// socket.emit('response', 'sys reply to user '+ short_socket_id + ' received!')
 	});
 
 	// broadcast a message when this socket disconnects
