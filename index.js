@@ -14,8 +14,16 @@ app.get('/', function(req, res) {
 
 // connection
 io.on('connection', function(socket){
+	// TODO:  tried socket.emit here doesn't work, diff io.emit vs socket.emit
+	io.emit('chat message', '-- a user has connected');
+
 	socket.on('chat message', function(msg){
 		io.emit('chat message', msg);
+	});
+
+	// broadcast a message when this socket disconnects
+	socket.on('disconnect', () => {
+		io.emit('chat message', '-- a user has left');
 	});
 });
 
