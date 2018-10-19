@@ -5,8 +5,9 @@
 </head>
 
 <body>
-  <form id="username" action="http://localhost:3000">
-    <input id="login_input" autocomplete="off" required/><button>Login</button>
+  <form id="username" action="http://localhost:3000/chat" method="get">
+    <!-- the name attr needs to exist to construct key / value query -->
+    <input name="login" id="login_input" autocomplete="off" required/><button>Login</button>
   </form>
 </body>
 </html>
