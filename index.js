@@ -7,9 +7,15 @@ var http = require('http').Server(app)
 // io listens on the connection event for incoming sockets
 var io = require('socket.io')(http);
 
-app.get('/', function(req, res) {
+// TODO get rid of dummy get query
+app.get('/chat', function(req, res) {
 	// res.send('<h1> Hello world</h1>');
+	console.log(req.query.login);
 	res.sendFile(__dirname + '/index.html');
+});
+
+app.get('/', function(req, res) {
+	res.sendFile(__dirname + '/login.html');
 });
 
 // connection
